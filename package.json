@@ -7,9 +7,9 @@
 		"dev": "nuxt dev -o",
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare",
-		"lint": "eslint .",
-		"format": "prettier --check .",
-		"lintfix": "eslint --fix . && prettier --write ."
+		"lint": "eslint . && prettier --check .",
+		"lintfix": "eslint --fix . && prettier --write .",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"nuxt": "^3.11.2",
