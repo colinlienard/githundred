@@ -6,12 +6,12 @@ export default {
 		'./pages/**/*.vue',
 		'./plugins/**/*.{js,ts}',
 		'./app.vue',
-		'./error.vue'
+		'./error.vue',
 	],
 	theme: {
 		fontFamily: {
 			sans: ['Inter', 'sans-serif'],
-			serif: ['Source Serif Pro', 'serif']
-		}
-	}
+			serif: ['Source Serif Pro', 'serif'],
+		},
+	},
 };

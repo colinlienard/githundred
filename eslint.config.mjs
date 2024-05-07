@@ -5,8 +5,9 @@ export default withNuxt([
 	eslintConfigPrettier,
 	{
 		rules: {
+			'@typescript-eslint/no-explicit-any': 'off',
 			'no-console': 'warn',
-			'vue/multi-word-component-names': 'off'
-		}
-	}
+			'vue/multi-word-component-names': 'off',
+		},
+	},
 ]);

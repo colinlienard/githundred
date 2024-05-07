@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
 	alias: {
-		heroicons: '@heroicons/vue/24/solid'
+		heroicons: '@heroicons/vue/24/outline',
 	},
 	devtools: { enabled: true },
 	css: ['~/assets/css/main.css'],
@@ -8,7 +8,10 @@ export default defineNuxtConfig({
 	postcss: {
 		plugins: {
 			tailwindcss: {},
-			autoprefixer: {}
-		}
-	}
+			autoprefixer: {},
+		},
+	},
+	runtimeConfig: {
+		githubToken: '',
+	},
 });
