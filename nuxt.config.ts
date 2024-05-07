@@ -1,7 +1,10 @@
 export default defineNuxtConfig({
+	alias: {
+		heroicons: '@heroicons/vue/24/solid'
+	},
 	devtools: { enabled: true },
-	modules: ['@nuxt/eslint'],
 	css: ['~/assets/css/main.css'],
+	modules: ['@nuxt/eslint'],
 	postcss: {
 		plugins: {
 			tailwindcss: {},
