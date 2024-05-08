@@ -5,11 +5,21 @@ const buildTime = useState(() => Date.now());
 const duration = Date.now() - buildTime.value;
 const hours = Math.floor(duration / 60 / 60 / 1000);
 const lastUpdated = hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : 'less than an hour';
+
+const pointer = usePointer();
+
+onMounted(() => {
+	window.addEventListener('mousemove', pointer.move);
+});
+
+onUnmounted(() => {
+	window.removeEventListener('mousemove', pointer.move);
+});
 </script>
 
 <template>
 	<div class="flex min-h-screen justify-center bg-slate-50 font-sans font-medium text-slate-800">
-		<div class="tiles absolute inset-[4px] h-[50vh] opacity-50" />
+		<PixelsBackground />
 		<div class="z-0 flex w-full max-w-5xl flex-col items-center gap-24 pt-8">
 			<header class="flex w-full items-center justify-between">
 				<h1 class="font-serif text-lg font-semibold">githundred</h1>
@@ -29,6 +39,7 @@ const lastUpdated = hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : 'less t
 						<span class="italic">starred</span>
 						GitHub repositories
 					</h2>
+					<Sticker url="/svgs/star.svg" />
 					<div class="flex items-center gap-2 text-slate-400">
 						<ArrowPathIcon class="h-4" />
 						<p class="text-sm">Last updated {{ lastUpdated }} ago</p>
@@ -39,25 +50,3 @@ const lastUpdated = hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : 'less t
 		</div>
 	</div>
 </template>
-
-<style scoped>
-.tiles {
-	--bg: #f8fafc;
-	--color: #e2e8f0;
-	--space: 4px;
-	background: linear-gradient(transparent, var(--bg)),
-		repeating-linear-gradient(
-			transparent,
-			transparent var(--space),
-			var(--bg) var(--space),
-			var(--bg) calc(var(--space) * 2)
-		),
-		repeating-linear-gradient(
-			90deg,
-			var(--color),
-			var(--color) var(--space),
-			var(--bg) var(--space),
-			var(--bg) calc(var(--space) * 2)
-		);
-}
-</style>

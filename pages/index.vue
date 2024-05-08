@@ -3,7 +3,7 @@ import { StarIcon } from 'heroicons';
 
 const { data: repositories } = await useFetch('/api/repositories');
 
-const hoverEffect = ref({ height: 0, top: 0 });
+const hoverEffect = ref({ height: 0, top: 0, opacity: 0 });
 
 function formatDuration(age: number) {
 	const years = Math.floor(age / 12 / 30 / 24 / 60 / 60 / 1000);
@@ -13,13 +13,15 @@ function formatDuration(age: number) {
 function onHoverEffectMouseEnter(event: MouseEvent) {
 	const target = event.target as HTMLElement;
 	const { height } = target.getBoundingClientRect();
-	hoverEffect.value = { top: target.offsetTop, height };
+	hoverEffect.value = { top: target.offsetTop, height, opacity: 1 };
 }
 </script>
 
 <template>
 	<section class="table">
-		<div class="table-header-group">
+		<div
+			class="after:content-[' '] sticky top-0 z-10 table-header-group bg-slate-50 after:absolute after:inset-x-0 after:-bottom-[1px] after:h-[1px] after:bg-slate-300"
+		>
 			<div class="table-row text-slate-400 *:table-cell *:px-4 *:py-6">
 				<div>Rank</div>
 				<div>Name</div>
@@ -29,10 +31,14 @@ function onHoverEffectMouseEnter(event: MouseEvent) {
 				<div>Age</div>
 			</div>
 		</div>
-		<div class="relative table-row-group">
+		<div class="relative table-row-group" @mouseleave="hoverEffect.opacity = 0">
 			<div
 				class="absolute h-10 w-full bg-white transition-all"
-				:style="{ height: `${hoverEffect.height}px`, top: `${hoverEffect.top}px` }"
+				:style="{
+					height: `${hoverEffect.height}px`,
+					top: `${hoverEffect.top}px`,
+					opacity: hoverEffect.opacity,
+				}"
 			/>
 			<NuxtLink
 				v-for="(repo, index) in repositories"
