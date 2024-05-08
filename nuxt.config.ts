@@ -13,11 +13,9 @@ export default defineNuxtConfig({
 	},
 	routeRules: {
 		'/**': { isr: 60 * 60 * 24 },
+		'/api/**': { cors: true },
 	},
 	runtimeConfig: {
 		githubToken: '',
-		public: {
-			timestamp: new Date().toString(),
-		},
 	},
 });

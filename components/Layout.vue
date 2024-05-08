@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ArrowPathIcon } from 'heroicons';
 
-const config = useRuntimeConfig();
-const duration = new Date().getTime() - new Date(config.public.timestamp).getTime();
+const buildTime = useState(() => Date.now());
+const duration = Date.now() - buildTime.value;
 const hours = Math.floor(duration / 60 / 60 / 1000);
-const lastUpdated = hours > 0 ? `${hours} hours` : 'less than an hour';
+const lastUpdated = hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : 'less than an hour';
 </script>
 
 <template>

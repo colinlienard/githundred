@@ -52,8 +52,6 @@ export default defineEventHandler(async (event) => {
 	});
 	const { data } = await response.json();
 
-	const today = new Date();
-
 	const result: Repository[] = data.search.edges.map(({ node }: any) => ({
 		name: node.name,
 		ownerName: node.owner.login,
@@ -61,7 +59,7 @@ export default defineEventHandler(async (event) => {
 		description: node.description,
 		starsNumber: node.stargazers.totalCount,
 		url: node.url,
-		age: today.getTime() - new Date(node.createdAt).getTime(),
+		age: Date.now() - new Date(node.createdAt).getTime(),
 		language: node.languages.nodes[0],
 	}));
 	return result;
