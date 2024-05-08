@@ -3,12 +3,17 @@ import { StarIcon } from 'heroicons';
 
 const { data: repositories } = await useFetch('/api/repositories');
 
-const durationFormatter = new Intl.RelativeTimeFormat('en', { style: 'long' });
+const hoverEffect = ref({ height: 0, top: 0 });
 
 function formatDuration(age: number) {
 	const years = Math.floor(age / 12 / 30 / 24 / 60 / 60 / 1000);
-	const formatted = durationFormatter.format(years, 'year');
-	return `${formatted.replace('in ', '')} old`;
+	return `${years} years old`;
+}
+
+function onHoverEffectMouseEnter(event: MouseEvent) {
+	const target = event.target as HTMLElement;
+	const { height } = target.getBoundingClientRect();
+	hoverEffect.value = { top: target.offsetTop, height };
 }
 </script>
 
@@ -24,13 +29,18 @@ function formatDuration(age: number) {
 				<div>Age</div>
 			</div>
 		</div>
-		<div class="table-row-group">
+		<div class="relative table-row-group">
+			<div
+				class="absolute h-10 w-full bg-white transition-all"
+				:style="{ height: `${hoverEffect.height}px`, top: `${hoverEffect.top}px` }"
+			/>
 			<NuxtLink
 				v-for="(repo, index) in repositories"
 				:key="repo.name"
 				:to="repo.url"
 				target="_blank"
 				class="after:content-[' '] relative table-row *:table-cell *:px-4 *:py-6 *:align-top after:absolute after:inset-0 after:h-[1px] after:bg-slate-300"
+				@mouseenter="onHoverEffectMouseEnter"
 			>
 				<div>
 					<div

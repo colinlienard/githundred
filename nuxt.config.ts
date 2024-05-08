@@ -11,7 +11,13 @@ export default defineNuxtConfig({
 			autoprefixer: {},
 		},
 	},
+	routeRules: {
+		'/**': { isr: 60 * 60 * 24 },
+	},
 	runtimeConfig: {
 		githubToken: '',
+		public: {
+			timestamp: new Date().toString(),
+		},
 	},
 });
