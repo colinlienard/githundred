@@ -45,7 +45,7 @@ function onHoverEffectMouseEnter(event: MouseEvent) {
 				:key="repo.name"
 				:to="repo.url"
 				target="_blank"
-				class="after:content-[' '] relative table-row *:table-cell *:px-4 *:py-6 *:align-top after:absolute after:inset-0 after:h-[1px] after:bg-slate-300"
+				class="after:content-[' '] relative table-row cursor-[url(/images/eyes-emoji.png)_12_12,_pointer] *:table-cell *:px-4 *:py-6 *:align-top after:absolute after:inset-0 after:h-[1px] after:bg-slate-300"
 				@mouseenter="onHoverEffectMouseEnter"
 			>
 				<div>

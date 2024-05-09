@@ -33,13 +33,25 @@ onUnmounted(() => {
 				</NuxtLink>
 			</header>
 			<main class="flex w-full flex-col items-center gap-16">
-				<div class="flex w-full flex-col items-center gap-6">
+				<div class="relative flex w-full flex-col items-center gap-6">
 					<h2 class="max-w-2xl text-center font-serif text-6xl font-semibold">
-						Top 100 most
+						Top
+						<span class="text-transparent">100</span>
+						most
 						<span class="italic">starred</span>
 						GitHub repositories
 					</h2>
-					<Sticker url="/svgs/star.svg" />
+					<Sticker url="/svgs/100-sticker.svg" class="!absolute -top-6 -translate-x-[6.75rem]" />
+					<Sticker
+						url="/svgs/star-sticker.svg"
+						rotate="90deg"
+						class="!absolute -top-2 translate-x-80"
+					/>
+					<Sticker
+						url="/svgs/github-sticker.svg"
+						rotate="-15deg"
+						class="!absolute -bottom-1 -translate-x-[17rem]"
+					/>
 					<div class="flex items-center gap-2 text-slate-400">
 						<ArrowPathIcon class="h-4" />
 						<p class="text-sm">Last updated {{ lastUpdated }} ago</p>

@@ -13,7 +13,8 @@ function randomPixel() {
 }
 
 onMounted(() => {
-	pixels.value = Array.from({ length: 32 }, randomPixel);
+	const length = Math.round(window.innerWidth / 40);
+	pixels.value = Array.from({ length }, randomPixel);
 
 	intervalId = setInterval(() => {
 		pixels.value.shift();
@@ -30,7 +31,7 @@ onUnmounted(() => {
 
 <template>
 	<div class="absolute inset-[4px] h-[50vh] overflow-hidden">
-		<div class="tiles absolute inset-0 opacity-50" />
+		<div class="tileset absolute inset-0 opacity-50" />
 		<TransitionGroup name="pixels">
 			<div
 				v-for="{ id, x, y, color } in pixels"
@@ -44,7 +45,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.tiles {
+.tileset {
 	--bg: #f8fafc;
 	--color: #e2e8f0;
 	--space: 0.25rem;
@@ -65,7 +66,7 @@ onUnmounted(() => {
 
 .pixels-enter-active,
 .pixels-leave-active {
-	transition: opacity 2s ease-in-out;
+	transition: opacity 1s ease-in-out;
 }
 .pixels-enter-from,
 .pixels-leave-to {
