@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { StarIcon } from 'heroicons';
 
-const { data: repositories } = await useFetch('/api/repositories');
+const { data } = await useFetch('/api/repositories');
 
+const settings = useSettings();
+
+const repositories = computed(() => {
+	if (!settings.search) return data.value;
+	return data.value?.filter((repo) =>
+		repo.name.toLowerCase().includes(settings.search.toLowerCase()),
+	);
+});
 const hoverEffect = ref({ height: 0, top: 0, opacity: 0 });
 
 function formatDuration(age: number) {
 	const years = Math.floor(age / 12 / 30 / 24 / 60 / 60 / 1000);
-	return `${years} years old`;
+	return `${years} y.o.`;
 }
 
 function onHoverEffectMouseEnter(event: MouseEvent) {
@@ -18,17 +26,17 @@ function onHoverEffectMouseEnter(event: MouseEvent) {
 </script>
 
 <template>
-	<section class="table">
+	<section class="table w-[64rem] table-fixed">
 		<div
 			class="after:content-[' '] sticky top-0 z-10 table-header-group bg-slate-50 after:absolute after:inset-x-0 after:-bottom-[1px] after:h-[1px] after:bg-slate-300"
 		>
 			<div class="table-row text-slate-400 *:table-cell *:px-4 *:py-6">
-				<div>Rank</div>
-				<div>Name</div>
-				<div>Stars</div>
-				<div>Description</div>
-				<div>Language</div>
-				<div>Age</div>
+				<div class="w-[8%]">Rank</div>
+				<div class="w-[30%]">Name</div>
+				<div class="w-[12%]">Stars</div>
+				<div class="w-[30%]">Description</div>
+				<div class="w-[12%]">Language</div>
+				<div class="w-[8%]">Age</div>
 			</div>
 		</div>
 		<div class="relative table-row-group" @mouseleave="hoverEffect.opacity = 0">
@@ -45,7 +53,7 @@ function onHoverEffectMouseEnter(event: MouseEvent) {
 				:key="repo.name"
 				:to="repo.url"
 				target="_blank"
-				class="after:content-[' '] relative table-row cursor-[url(/images/eyes-emoji.png)_12_12,_pointer] *:table-cell *:px-4 *:py-6 *:align-top after:absolute after:inset-0 after:h-[1px] after:bg-slate-300"
+				class="after:content-[' '] relative table-row cursor-alias *:table-cell *:px-4 *:py-6 *:align-top after:absolute after:inset-0 after:h-[1px] after:bg-slate-300"
 				@mouseenter="onHoverEffectMouseEnter"
 			>
 				<div>
@@ -56,9 +64,12 @@ function onHoverEffectMouseEnter(event: MouseEvent) {
 					</div>
 				</div>
 				<div>
-					<div class="flex items-center gap-2 text-nowrap">
+					<div class="flex items-center gap-2">
 						<img :src="repo.image" :alt="`GitHub ${repo.ownerName} avatar`" class="h-6 rounded" />
-						<h3 class="font-semibold">{{ repo.name }}</h3>
+						<h3>
+							<span v-if="settings.showOwners" class="text-slate-500">{{ repo.ownerName }}/</span>
+							{{ repo.name }}
+						</h3>
 					</div>
 				</div>
 				<div>
@@ -67,14 +78,19 @@ function onHoverEffectMouseEnter(event: MouseEvent) {
 						<span>{{ repo.starsNumber.toLocaleString() }}</span>
 					</div>
 				</div>
-				<div class="text-slate-400">{{ repo.description }}</div>
+				<div class="text-slate-500">
+					<p v-if="settings.showFullDescription">{{ repo.description }}</p>
+					<p v-else class="overflow-hidden text-ellipsis whitespace-nowrap">
+						{{ repo.description }}
+					</p>
+				</div>
 				<div>
 					<div v-if="repo.language" class="flex items-center gap-1">
 						<div class="h-2 w-2 rounded-full" :style="{ backgroundColor: repo.language.color }" />
 						{{ repo.language?.name }}
 					</div>
 				</div>
-				<div class="text-nowrap">{{ formatDuration(repo.age) }}</div>
+				<div>{{ formatDuration(repo.age) }}</div>
 			</NuxtLink>
 		</div>
 	</section>

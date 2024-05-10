@@ -7,19 +7,19 @@ const center = ref<{ x: number; y: number }>();
 const pointer = usePointer();
 
 const y = computedWithPrev<number>((prev) => {
-	if (!center.value) return 0;
+	if (!center.value) return -4;
 	return ease(-(center.value.x - pointer.x), prev);
 });
 
 const x = computedWithPrev<number>((prev) => {
-	if (!center.value) return 0;
+	if (!center.value) return -12;
 	return ease(center.value.y - pointer.y, prev);
 });
 
 const fromCenter = computed(() => {
 	if (!center.value) return 0;
 	const distance = Math.hypot(center.value.x - pointer.x, center.value.y - pointer.y);
-	return Math.max(distance / 200, 2) / 4;
+	return Math.min(Math.max(distance / 400, 0.5), 0.8);
 });
 
 function ease(result: number, prev: number, max = 15, easing = 0.05) {

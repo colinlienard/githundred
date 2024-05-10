@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowPathIcon } from 'heroicons';
+import { ArrowPathIcon, CheckIcon, MagnifyingGlassIcon, XMarkIcon } from 'heroicons';
 
 const buildTime = useState(() => Date.now());
 const duration = Date.now() - buildTime.value;
@@ -7,6 +7,7 @@ const hours = Math.floor(duration / 60 / 60 / 1000);
 const lastUpdated = hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : 'less than an hour';
 
 const pointer = usePointer();
+const settings = useSettings();
 
 onMounted(() => {
 	window.addEventListener('mousemove', pointer.move);
@@ -32,7 +33,7 @@ onUnmounted(() => {
 					GitHub
 				</NuxtLink>
 			</header>
-			<main class="flex w-full flex-col items-center gap-16">
+			<main class="flex w-full flex-col items-center">
 				<div class="relative flex w-full flex-col items-center gap-6">
 					<h2 class="max-w-2xl text-center font-serif text-6xl font-semibold">
 						Top
@@ -45,7 +46,7 @@ onUnmounted(() => {
 					<Sticker
 						url="/svgs/star-sticker.svg"
 						rotate="90deg"
-						class="!absolute -top-2 translate-x-80"
+						class="!absolute top-1 translate-x-[19.5rem]"
 					/>
 					<Sticker
 						url="/svgs/github-sticker.svg"
@@ -56,6 +57,22 @@ onUnmounted(() => {
 						<ArrowPathIcon class="h-4" />
 						<p class="text-sm">Last updated {{ lastUpdated }} ago</p>
 					</div>
+				</div>
+				<div class="mt-16 flex w-full gap-2 py-8">
+					<Input v-model="settings.search" placeholder="Search by name" class="w-full">
+						<MagnifyingGlassIcon />
+					</Input>
+					<Select placeholder="Languages" class="w-full" />
+					<Button @click="settings.showOwners = !settings.showOwners">
+						<CheckIcon v-if="settings.showOwners" />
+						<XMarkIcon v-else />
+						Show owners
+					</Button>
+					<Button @click="settings.showFullDescription = !settings.showFullDescription">
+						<CheckIcon v-if="settings.showFullDescription" />
+						<XMarkIcon v-else />
+						Show full description
+					</Button>
 				</div>
 				<slot />
 			</main>
