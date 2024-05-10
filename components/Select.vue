@@ -7,12 +7,24 @@ const { options, placeholder } = defineProps<{ options: string[]; placeholder: s
 const element = ref<HTMLElement>();
 const isOpen = ref(false);
 const position = ref({ x: 0, y: 0, width: 0 });
+const search = ref('');
+const searchInputRef = ref<HTMLInputElement>();
 
 watch(isOpen, () => {
 	if (!isOpen.value) return;
 	const { offsetTop, offsetLeft: x, offsetWidth: width, offsetHeight } = element.value!;
 	const y = offsetTop + offsetHeight + 8;
 	position.value = { x, y, width };
+	search.value = '';
+});
+
+watchEffect(() => {
+	searchInputRef.value?.focus();
+});
+
+const filteredOptions = computed(() => {
+	if (!search.value) return options;
+	return options.filter((option) => option.toLowerCase().includes(search.value.toLowerCase()));
 });
 
 function onClickOutside(event: MouseEvent) {
@@ -40,8 +52,8 @@ function onKeydown(event: KeyboardEvent) {
 			if (document.activeElement?.getAttribute('data-select-option')) {
 				const element =
 					event.key === 'ArrowDown'
-						? document.activeElement.nextSibling
-						: document.activeElement.previousSibling;
+						? document.activeElement.nextElementSibling
+						: document.activeElement.previousElementSibling;
 				(element as HTMLElement)?.focus();
 			} else {
 				(document.querySelector('[data-select-option]') as HTMLElement | undefined)?.focus();
@@ -93,11 +105,17 @@ onUnmounted(() => {
 				<div
 					v-if="isOpen"
 					data-select
-					class="absolute left-0 right-0 top-full z-50 flex max-h-40 flex-col overflow-auto rounded-lg border border-solid border-slate-300 bg-slate-50 shadow-sm"
+					class="absolute left-0 right-0 top-full z-50 flex max-h-56 flex-col overflow-auto rounded-lg border border-solid border-slate-300 bg-slate-50 shadow-sm"
 					:style="{ top: `${position.y}px`, left: `${position.x}px`, width: `${position.width}px` }"
 				>
+					<Input
+						ref="searchInputRef"
+						v-model="search"
+						placeholder="Search a language"
+						class="m-2"
+					/>
 					<button
-						v-for="option in options"
+						v-for="option in filteredOptions"
 						:key="option"
 						class="box group border-none !-outline-offset-4"
 						:data-select-option="option"

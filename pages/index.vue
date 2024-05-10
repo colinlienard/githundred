@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { StarIcon } from 'heroicons';
+import { ArrowUpIcon, StarIcon } from 'heroicons';
 
 const { data } = await useFetch('/api/repositories');
 
 const settings = useSettings();
 const languages = useLanguages();
+const topOfTableRef = ref<HTMLElement>();
+const hasScrolled = ref(false);
 
 const repositories = computed(() => {
 	if (!settings.search && !settings.languages.length) return data.value;
@@ -31,6 +33,10 @@ function onHoverEffectMouseEnter(event: MouseEvent) {
 	hoverEffect.value = { top: target.offsetTop, height, opacity: 1 };
 }
 
+function onClickScrollUp() {
+	window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 watchEffect(() => {
 	if (!data.value) return;
 	languages.value = data.value
@@ -42,14 +48,32 @@ watchEffect(() => {
 		}, [])
 		.sort();
 });
+
+let observer: IntersectionObserver | undefined;
+
+watchEffect(() => {
+	if (!topOfTableRef.value) return;
+	if (!observer) {
+		observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				hasScrolled.value = !entry.isIntersecting;
+			});
+		});
+	}
+	observer?.observe(topOfTableRef.value);
+});
+
+onUnmounted(() => {
+	observer?.disconnect();
+});
 </script>
 
 <template>
 	<section class="table w-[64rem] table-fixed">
 		<div
-			class="after:content-[' '] sticky top-0 z-10 table-header-group bg-slate-50 after:absolute after:inset-x-0 after:-bottom-[1px] after:h-[1px] after:bg-slate-300"
+			:class="`sticky top-0 z-10 table-header-group border-solid after:absolute after:inset-0 after:border-b after:border-slate-300 after:transition-shadow after:content-[''] ${hasScrolled && 'after:shadow-[0_1rem_1rem_-1.5rem_#94a3b8]'}`"
 		>
-			<div class="table-row text-slate-400 *:table-cell *:px-4 *:py-6">
+			<div class="relative table-row bg-slate-50 text-slate-400 *:table-cell *:px-4 *:py-6">
 				<div class="w-[8%]">Rank</div>
 				<div class="w-[30%]">Name</div>
 				<div class="w-[12%]">Stars</div>
@@ -58,6 +82,7 @@ watchEffect(() => {
 				<div class="w-[8%]">Age</div>
 			</div>
 		</div>
+		<div ref="topOfTableRef" />
 		<div class="relative table-row-group" @mouseleave="hoverEffect.opacity = 0">
 			<div
 				class="absolute h-10 w-full bg-white transition-all"
@@ -68,18 +93,18 @@ watchEffect(() => {
 				}"
 			/>
 			<NuxtLink
-				v-for="(repo, index) in repositories"
+				v-for="repo in repositories"
 				:key="repo.name"
 				:to="repo.url"
 				target="_blank"
-				class="after:content-[' '] relative table-row cursor-alias *:table-cell *:px-4 *:py-6 *:align-top after:absolute after:inset-0 after:h-[1px] after:bg-slate-300"
+				class="relative table-row cursor-alias *:table-cell *:px-4 *:py-6 *:align-top after:absolute after:inset-0 after:h-[1px] after:content-[''] [&:not(:first-of-type):after]:bg-slate-300"
 				@mouseenter="onHoverEffectMouseEnter"
 			>
 				<div>
 					<div
 						class="flex h-8 w-8 -translate-y-1 items-center justify-center rounded-full border border-solid border-slate-300"
 					>
-						{{ index + 1 }}
+						{{ repo.rank }}
 					</div>
 				</div>
 				<div>
@@ -112,5 +137,28 @@ watchEffect(() => {
 				<div>{{ formatDuration(repo.age) }}</div>
 			</NuxtLink>
 		</div>
+		<Teleport to="body">
+			<Transition>
+				<button
+					v-if="hasScrolled"
+					class="fixed bottom-4 right-4 rounded-full bg-slate-50 p-4"
+					@click="onClickScrollUp"
+				>
+					<ArrowUpIcon class="h-4" />
+				</button>
+			</Transition>
+		</Teleport>
 	</section>
 </template>
+
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+	transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.v-enter-from,
+.v-leave-to {
+	opacity: 0;
+}
+</style>

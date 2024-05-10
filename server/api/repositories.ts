@@ -1,4 +1,5 @@
 type Repository = {
+	rank: number;
 	name: string;
 	ownerName: string;
 	image: string;
@@ -52,7 +53,8 @@ export default defineEventHandler(async (event) => {
 	});
 	const { data } = await response.json();
 
-	const result: Repository[] = data.search.edges.map(({ node }: any) => ({
+	const result: Repository[] = data.search.edges.map(({ node }: any, index: number) => ({
+		rank: index + 1,
 		name: node.name,
 		ownerName: node.owner.login,
 		image: node.owner.avatarUrl,
