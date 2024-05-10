@@ -20,9 +20,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<div class="flex min-h-screen justify-center bg-slate-50">
+	<div class="flex min-h-screen justify-center">
 		<PixelsBackground />
-		<div class="z-0 flex w-full max-w-5xl flex-col items-center gap-24 pt-8">
+		<div class="z-0 flex w-full max-w-5xl flex-col items-center gap-24 py-8">
 			<header class="flex w-full items-center justify-between">
 				<h1 class="font-serif text-lg font-semibold">githundred</h1>
 				<NuxtLink
@@ -83,6 +83,10 @@ onUnmounted(() => {
 				</div>
 				<slot />
 			</main>
+			<footer class="mt-auto">
+				<span class="text-slate-400">Made by{{ ' ' }}</span>
+				<NuxtLink to="https://colin-lienard.fr" target="_blank">Colin Lienard</NuxtLink>
+			</footer>
 		</div>
 	</div>
 </template>

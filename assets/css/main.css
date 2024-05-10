@@ -35,6 +35,10 @@
 		src: url(/fonts/SourceSerifPro-SemiboldIt.otf) format('otf');
 	}
 
+	html {
+		@apply bg-slate-50;
+	}
+
 	body {
 		@apply overflow-y-scroll font-sans font-medium text-slate-800;
 	}

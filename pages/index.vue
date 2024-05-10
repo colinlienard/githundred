@@ -82,8 +82,12 @@ onUnmounted(() => {
 				<div class="w-[8%]">Age</div>
 			</div>
 		</div>
-		<div ref="topOfTableRef" />
-		<div class="relative table-row-group" @mouseleave="hoverEffect.opacity = 0">
+		<div
+			v-if="repositories?.length"
+			class="relative table-row-group"
+			@mouseleave="hoverEffect.opacity = 0"
+		>
+			<div ref="topOfTableRef" />
 			<div
 				class="absolute h-10 w-full bg-white transition-all"
 				:style="{
@@ -102,7 +106,7 @@ onUnmounted(() => {
 			>
 				<div>
 					<div
-						class="flex h-8 w-8 -translate-y-1 items-center justify-center rounded-full border border-solid border-slate-300"
+						class="relative w-8 text-center after:absolute after:inset-1/2 after:h-8 after:w-8 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:border after:border-solid after:border-slate-300 after:content-['']"
 					>
 						{{ repo.rank }}
 					</div>
@@ -137,11 +141,12 @@ onUnmounted(() => {
 				<div>{{ formatDuration(repo.age) }}</div>
 			</NuxtLink>
 		</div>
+		<p v-else class="text-nowrap px-4 pt-8 text-slate-500">No results for this search.</p>
 		<Teleport to="body">
 			<Transition>
 				<button
 					v-if="hasScrolled"
-					class="fixed bottom-4 right-4 rounded-full bg-slate-50 p-4"
+					class="fixed bottom-4 right-4 z-50 rounded-full bg-slate-50 p-4"
 					@click="onClickScrollUp"
 				>
 					<ArrowUpIcon class="h-4" />
