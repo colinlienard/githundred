@@ -1,3 +1,5 @@
+import { emojify } from 'node-emoji';
+
 type Repository = {
 	rank: number;
 	name: string;
@@ -58,7 +60,7 @@ export default defineEventHandler(async (event) => {
 		name: node.name,
 		ownerName: node.owner.login,
 		image: node.owner.avatarUrl,
-		description: node.description,
+		description: emojify(node.description),
 		starsNumber: node.stargazers.totalCount,
 		url: node.url,
 		age: Date.now() - new Date(node.createdAt).getTime(),
