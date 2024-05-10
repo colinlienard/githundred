@@ -8,6 +8,7 @@ const lastUpdated = hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : 'less t
 
 const pointer = usePointer();
 const settings = useSettings();
+const languages = useLanguages();
 
 onMounted(() => {
 	window.addEventListener('mousemove', pointer.move);
@@ -19,7 +20,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<div class="flex min-h-screen justify-center bg-slate-50 font-sans font-medium text-slate-800">
+	<div class="flex min-h-screen justify-center bg-slate-50">
 		<PixelsBackground />
 		<div class="z-0 flex w-full max-w-5xl flex-col items-center gap-24 pt-8">
 			<header class="flex w-full items-center justify-between">
@@ -28,6 +29,7 @@ onUnmounted(() => {
 					to="https://github.com/colinlienard/githundred"
 					target="_blank"
 					class="flex items-center gap-1 transition-colors hover:text-slate-500"
+					tabindex="-1"
 				>
 					<GitHubIcon class="h-5" />
 					GitHub
@@ -62,7 +64,12 @@ onUnmounted(() => {
 					<Input v-model="settings.search" placeholder="Search by name" class="w-full">
 						<MagnifyingGlassIcon />
 					</Input>
-					<Select placeholder="Languages" class="w-full" />
+					<Select
+						v-model="settings.languages"
+						:options="languages.value"
+						placeholder="Languages"
+						class="w-full"
+					/>
 					<Button @click="settings.showOwners = !settings.showOwners">
 						<CheckIcon v-if="settings.showOwners" />
 						<XMarkIcon v-else />

@@ -4,7 +4,7 @@ const { placeholder } = defineProps<{ placeholder: string }>();
 </script>
 
 <template>
-	<label class="box input cursor-text">
+	<label class="box input cursor-text hover:border-slate-400">
 		<slot />
 		<input
 			v-model="model"

@@ -36,24 +36,21 @@
 	}
 
 	body {
-		overflow-y: scroll;
+		@apply overflow-y-scroll font-sans font-medium text-slate-800;
 	}
 
 	*::selection {
-		background-color: #99f6e4;
+		@apply bg-teal-200;
 	}
 }
 
 @layer components {
 	.box {
-		@apply flex items-center gap-2 text-nowrap rounded-lg border border-solid border-slate-300 bg-slate-50 px-3 py-2 outline-0 outline-teal-100 [&>svg]:h-4;
-	}
+		@apply flex items-center gap-2 text-nowrap rounded-lg border border-solid border-slate-300 bg-slate-50 px-3 py-2 outline-0 outline-teal-100 transition-all [&>svg]:h-4;
 
-	.input {
-		@apply transition-[border] focus-within:!border-teal-400 focus-within:outline focus-within:outline-4 hover:border-slate-400;
-	}
-
-	.button {
-		@apply transition-[background-color] hover:bg-white active:bg-slate-100 active:transition-none;
+		&:focus,
+		&:focus-within {
+			@apply !border-teal-400 outline outline-4;
+		}
 	}
 }

@@ -1,3 +1,5 @@
 <template>
-	<button class="box button shadow-sm"><slot /></button>
+	<button class="box shadow-sm hover:bg-white active:bg-slate-100 active:transition-none">
+		<slot />
+	</button>
 </template>

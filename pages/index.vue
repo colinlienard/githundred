@@ -4,12 +4,19 @@ import { StarIcon } from 'heroicons';
 const { data } = await useFetch('/api/repositories');
 
 const settings = useSettings();
+const languages = useLanguages();
 
 const repositories = computed(() => {
-	if (!settings.search) return data.value;
-	return data.value?.filter((repo) =>
-		repo.name.toLowerCase().includes(settings.search.toLowerCase()),
-	);
+	if (!settings.search && !settings.languages.length) return data.value;
+	return data.value?.filter((repo) => {
+		const isLanguage = settings.languages.length
+			? settings.languages.includes(repo.language?.name ?? '')
+			: true;
+		const isSearch = settings.search
+			? repo.name.toLowerCase().includes(settings.search.toLowerCase())
+			: true;
+		return isLanguage && isSearch;
+	});
 });
 const hoverEffect = ref({ height: 0, top: 0, opacity: 0 });
 
@@ -23,6 +30,18 @@ function onHoverEffectMouseEnter(event: MouseEvent) {
 	const { height } = target.getBoundingClientRect();
 	hoverEffect.value = { top: target.offsetTop, height, opacity: 1 };
 }
+
+watchEffect(() => {
+	if (!data.value) return;
+	languages.value = data.value
+		.reduce<string[]>((previous, { language }) => {
+			if (language && !previous.includes(language.name)) {
+				previous.push(language.name);
+			}
+			return previous;
+		}, [])
+		.sort();
+});
 </script>
 
 <template>
