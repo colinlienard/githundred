@@ -11,11 +11,13 @@ const settings = useSettings();
 const languages = useLanguages();
 
 onMounted(() => {
-	window.addEventListener('mousemove', pointer.move);
+	window.addEventListener('mousemove', pointer.mousemove);
+	window.addEventListener('deviceorientation', pointer.deviceorientation);
 });
 
 onUnmounted(() => {
-	window.removeEventListener('mousemove', pointer.move);
+	window.removeEventListener('mousemove', pointer.mousemove);
+	window.removeEventListener('deviceorientation', pointer.deviceorientation);
 });
 </script>
 
@@ -23,7 +25,7 @@ onUnmounted(() => {
 	<div class="flex min-h-screen justify-center">
 		<PixelsBackground />
 		<div
-			class="z-0 flex w-full max-w-5xl flex-col items-center gap-16 overflow-hidden px-0 py-8 md:gap-24"
+			class="z-0 flex w-full max-w-5xl flex-col items-center gap-16 px-0 py-8 max-md:overflow-hidden md:gap-24"
 		>
 			<header class="flex w-full items-center justify-between max-md:px-6">
 				<h1 class="font-serif font-semibold md:text-lg"><NuxtLink to="/">githundred</NuxtLink></h1>
@@ -55,12 +57,12 @@ onUnmounted(() => {
 					<Sticker
 						url="/svgs/star-sticker.svg"
 						rotate="90deg"
-						class="!absolute bottom-6 -translate-x-44 max-md:scale-[70%] md:top-1 md:translate-x-[19.5rem]"
+						class="!absolute bottom-6 -translate-x-52 max-md:scale-[70%] md:top-1 md:translate-x-[19.5rem]"
 					/>
 					<Sticker
 						url="/svgs/github-sticker.svg"
 						rotate="-15deg"
-						class="!absolute bottom-4 translate-x-40 max-md:scale-75 md:-bottom-1 md:-translate-x-[17rem]"
+						class="!absolute bottom-4 translate-x-44 max-md:scale-75 md:-bottom-1 md:-translate-x-[17rem]"
 					/>
 					<div class="flex items-center gap-2 text-slate-400">
 						<ArrowPathIcon class="h-4" />

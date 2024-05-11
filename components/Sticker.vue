@@ -7,11 +7,13 @@ const center = ref<{ x: number; y: number }>();
 const pointer = usePointer();
 
 const y = computedWithPrev<number>((prev) => {
+	if (pointer.type === 'deviceorientation') return cap(pointer.x);
 	if (!center.value) return -4;
 	return ease(-(center.value.x - pointer.x), prev);
 });
 
 const x = computedWithPrev<number>((prev) => {
+	if (pointer.type === 'deviceorientation') return cap(pointer.y);
 	if (!center.value) return -12;
 	return ease(center.value.y - pointer.y, prev);
 });
@@ -19,12 +21,16 @@ const x = computedWithPrev<number>((prev) => {
 const fromCenter = computed(() => {
 	if (!center.value) return 0;
 	const distance = Math.hypot(center.value.x - pointer.x, center.value.y - pointer.y);
-	return Math.min(Math.max(distance / 400, 0.5), 0.8);
+	return cap(distance / 400, 0.5, 0.8);
 });
 
-function ease(result: number, prev: number, max = 15, easing = 0.05) {
-	const capped = Math.min(Math.max(result, -max), max);
+function ease(result: number, prev: number, easing = 0.05) {
+	const capped = cap(result);
 	return prev + (capped - prev) * easing;
+}
+
+function cap(result: number, min = -15, max = 15) {
+	return Math.min(Math.max(result, min), max);
 }
 
 onMounted(() => {

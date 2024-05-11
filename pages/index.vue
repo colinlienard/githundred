@@ -69,7 +69,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<section class="table w-[64rem] table-fixed overflow-auto">
+	<section class="table w-[64rem] table-fixed">
 		<div
 			:class="`sticky top-0 z-10 table-header-group border-solid after:absolute after:inset-0 after:border-b after:border-slate-300 after:transition-shadow after:content-[''] ${hasScrolled && 'after:shadow-[0_1rem_1rem_-1.5rem_#94a3b8]'}`"
 		>
