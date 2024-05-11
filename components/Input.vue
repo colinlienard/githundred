@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const model = defineModel<string>();
 const { placeholder } = defineProps<{ placeholder: string }>();
+const emit = defineEmits(['keydown']);
 
 const inputRef = ref<HTMLInputElement>();
 defineExpose({ focus: () => inputRef.value?.focus() });
@@ -15,6 +16,7 @@ defineExpose({ focus: () => inputRef.value?.focus() });
 			class="bg-transparent outline-none placeholder:text-slate-400"
 			type="text"
 			:placeholder="placeholder"
+			@keydown="emit('keydown', $event)"
 		/>
 	</label>
 </template>

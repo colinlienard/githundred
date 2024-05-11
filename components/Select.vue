@@ -72,6 +72,12 @@ function onClickItem(option: string) {
 	}
 }
 
+function onSearchKeydown(event: KeyboardEvent) {
+	if (event.key === 'Enter' && filteredOptions.value.length === 1) {
+		onClickItem(filteredOptions.value[0]);
+	}
+}
+
 onMounted(() => {
 	window.addEventListener('click', onClickOutside);
 	window.addEventListener('keydown', onKeydown);
@@ -91,10 +97,10 @@ onUnmounted(() => {
 		data-select
 		@click="isOpen = !isOpen"
 	>
-		<p v-if="model?.length" class="overflow-hidden text-ellipsis whitespace-nowrap">
+		<span v-if="model?.length" class="overflow-hidden text-ellipsis whitespace-nowrap">
 			{{ model?.join(', ') }}
-		</p>
-		<p v-else class="text-slate-400">{{ placeholder }}</p>
+		</span>
+		<span v-else class="text-slate-400">{{ placeholder }}</span>
 		<ChevronDownIcon
 			class="flex-shrink-0 transition-all"
 			:style="{ transform: isOpen ? 'rotate(-180deg)' : 'rotate(0)' }"
@@ -113,6 +119,7 @@ onUnmounted(() => {
 						v-model="search"
 						placeholder="Search a language"
 						class="m-2"
+						@keydown="onSearchKeydown"
 					/>
 					<button
 						v-for="option in filteredOptions"
@@ -127,6 +134,9 @@ onUnmounted(() => {
 						/>
 						{{ option }}
 					</button>
+					<span v-if="filteredOptions.length === 0" class="px-3 py-2 text-slate-500">
+						No results.
+					</span>
 				</div>
 			</Transition>
 		</Teleport>

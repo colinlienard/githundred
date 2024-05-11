@@ -22,9 +22,11 @@ onUnmounted(() => {
 <template>
 	<div class="flex min-h-screen justify-center">
 		<PixelsBackground />
-		<div class="z-0 flex w-full max-w-5xl flex-col items-center gap-24 py-8">
-			<header class="flex w-full items-center justify-between">
-				<h1 class="font-serif text-lg font-semibold">githundred</h1>
+		<div
+			class="z-0 flex w-full max-w-5xl flex-col items-center gap-16 overflow-hidden px-0 py-8 md:gap-24"
+		>
+			<header class="flex w-full items-center justify-between max-md:px-6">
+				<h1 class="font-serif font-semibold md:text-lg"><NuxtLink to="/">githundred</NuxtLink></h1>
 				<NuxtLink
 					to="https://github.com/colinlienard/githundred"
 					target="_blank"
@@ -35,53 +37,69 @@ onUnmounted(() => {
 					GitHub
 				</NuxtLink>
 			</header>
-			<main class="flex w-full flex-col items-center">
+			<main class="flex w-full flex-col items-center *:max-md:px-6">
 				<div class="relative flex w-full flex-col items-center gap-6">
-					<h2 class="max-w-2xl text-center font-serif text-6xl font-semibold">
+					<h2
+						class="max-w-96 text-center font-serif text-5xl font-semibold md:max-w-2xl md:text-6xl"
+					>
 						Top
 						<span class="text-transparent">100</span>
 						most
 						<span class="italic">starred</span>
 						GitHub repositories
 					</h2>
-					<Sticker url="/svgs/100-sticker.svg" class="!absolute -top-6 -translate-x-[6.75rem]" />
+					<Sticker
+						url="/svgs/100-sticker.svg"
+						class="!absolute -top-8 -translate-x-3 max-md:scale-[70%] md:-translate-x-[6.75rem]"
+					/>
 					<Sticker
 						url="/svgs/star-sticker.svg"
 						rotate="90deg"
-						class="!absolute top-1 translate-x-[19.5rem]"
+						class="!absolute bottom-6 -translate-x-44 max-md:scale-[70%] md:top-1 md:translate-x-[19.5rem]"
 					/>
 					<Sticker
 						url="/svgs/github-sticker.svg"
 						rotate="-15deg"
-						class="!absolute -bottom-1 -translate-x-[17rem]"
+						class="!absolute bottom-4 translate-x-40 max-md:scale-75 md:-bottom-1 md:-translate-x-[17rem]"
 					/>
 					<div class="flex items-center gap-2 text-slate-400">
 						<ArrowPathIcon class="h-4" />
 						<p class="text-sm">Last updated {{ lastUpdated }} ago</p>
 					</div>
 				</div>
-				<div class="mt-16 flex w-full gap-2 py-8">
-					<Input v-model="settings.search" placeholder="Search by name" class="w-full">
+				<div
+					class="mt-8 grid w-full grid-cols-[1fr_1fr] gap-2 py-8 [grid-template-areas:'a_a''b_b''c_d'] md:mt-16 md:flex"
+				>
+					<Input
+						v-model="settings.search"
+						placeholder="Search by name"
+						class="w-full [grid-area:a]"
+					>
 						<MagnifyingGlassIcon />
 					</Input>
 					<Select
 						v-model="settings.languages"
 						:options="languages.value"
 						placeholder="Languages"
-						class="w-full"
+						class="w-full [grid-area:b]"
 					/>
-					<Button @click="settings.showOwners = !settings.showOwners">
+					<Button class="[grid-area:c]" @click="settings.showOwners = !settings.showOwners">
 						<CheckIcon v-if="settings.showOwners" />
 						<XMarkIcon v-else />
 						Show owners
 					</Button>
-					<Button @click="settings.showFullDescription = !settings.showFullDescription">
+					<Button
+						class="[grid-area:d]"
+						@click="settings.showFullDescription = !settings.showFullDescription"
+					>
 						<CheckIcon v-if="settings.showFullDescription" />
 						<XMarkIcon v-else />
 						Show full description
 					</Button>
 				</div>
-				<slot />
+				<div class="w-full max-md:overflow-auto">
+					<slot />
+				</div>
 			</main>
 			<footer class="mt-auto">
 				<span class="text-slate-400">Made by{{ ' ' }}</span>

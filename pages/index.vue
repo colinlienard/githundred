@@ -69,7 +69,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<section class="table w-[64rem] table-fixed">
+	<section class="table w-[64rem] table-fixed overflow-auto">
 		<div
 			:class="`sticky top-0 z-10 table-header-group border-solid after:absolute after:inset-0 after:border-b after:border-slate-300 after:transition-shadow after:content-[''] ${hasScrolled && 'after:shadow-[0_1rem_1rem_-1.5rem_#94a3b8]'}`"
 		>
@@ -87,7 +87,7 @@ onUnmounted(() => {
 			class="relative table-row-group"
 			@mouseleave="hoverEffect.opacity = 0"
 		>
-			<div ref="topOfTableRef" />
+			<div ref="topOfTableRef" class="w-[1200%]" />
 			<div
 				class="absolute h-10 w-full bg-white transition-all"
 				:style="{
@@ -137,11 +137,12 @@ onUnmounted(() => {
 						<div class="h-2 w-2 rounded-full" :style="{ backgroundColor: repo.language.color }" />
 						{{ repo.language?.name }}
 					</div>
+					<span v-else>-</span>
 				</div>
 				<div>{{ formatDuration(repo.age) }}</div>
 			</NuxtLink>
 		</div>
-		<p v-else class="text-nowrap px-4 pt-8 text-slate-500">No results for this search.</p>
+		<div v-else class="text-nowrap px-4 pt-8 text-slate-500">No results for this search.</div>
 		<Teleport to="body">
 			<Transition>
 				<button
