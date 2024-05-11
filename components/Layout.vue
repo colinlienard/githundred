@@ -28,7 +28,9 @@ onUnmounted(() => {
 			class="z-0 flex w-full max-w-5xl flex-col items-center gap-16 px-0 py-8 max-md:overflow-hidden md:gap-24"
 		>
 			<header class="flex w-full items-center justify-between max-md:px-6">
-				<h1 class="font-serif font-semibold md:text-lg"><NuxtLink to="/">githundred</NuxtLink></h1>
+				<h1 class="font-serif font-semibold md:text-lg">
+					<NuxtLink to="/"><strong>githundred</strong></NuxtLink>
+				</h1>
 				<NuxtLink
 					to="https://github.com/colinlienard/githundred"
 					target="_blank"
@@ -44,11 +46,13 @@ onUnmounted(() => {
 					<h2
 						class="max-w-96 text-center font-serif text-5xl font-semibold md:max-w-2xl md:text-6xl"
 					>
-						Top
-						<span class="text-transparent">100</span>
-						most
-						<span class="italic">starred</span>
-						GitHub repositories
+						<strong>
+							Top
+							<span class="text-transparent">100</span>
+							most
+							<span class="italic">starred</span>
+							GitHub repositories
+						</strong>
 					</h2>
 					<Sticker
 						url="/svgs/100-sticker.svg"
@@ -64,7 +68,7 @@ onUnmounted(() => {
 						rotate="-15deg"
 						class="!absolute bottom-4 translate-x-44 max-md:scale-75 md:-bottom-1 md:-translate-x-[17rem]"
 					/>
-					<div class="flex items-center gap-2 text-slate-400">
+					<div class="flex items-center gap-2 text-slate-500">
 						<ArrowPathIcon class="h-4" />
 						<p class="text-sm">Last updated {{ lastUpdated }} ago</p>
 					</div>
@@ -104,7 +108,7 @@ onUnmounted(() => {
 				</div>
 			</main>
 			<footer class="mt-auto">
-				<span class="text-slate-400">Made by{{ ' ' }}</span>
+				<span class="text-slate-500">Made by{{ ' ' }}</span>
 				<NuxtLink to="https://colin-lienard.fr" target="_blank">Colin Lienard</NuxtLink>
 			</footer>
 		</div>

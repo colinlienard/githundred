@@ -73,7 +73,7 @@ onUnmounted(() => {
 		<div
 			:class="`sticky top-0 z-10 table-header-group border-solid after:absolute after:inset-0 after:border-b after:border-slate-300 after:transition-shadow after:content-[''] ${hasScrolled && 'after:shadow-[0_1rem_1rem_-1.5rem_#94a3b8]'}`"
 		>
-			<div class="relative table-row bg-slate-50 text-slate-400 *:table-cell *:px-4 *:py-6">
+			<div class="relative table-row bg-slate-50 text-slate-500 *:table-cell *:px-4 *:py-6">
 				<div class="w-[8%]">Rank</div>
 				<div class="w-[30%]">Name</div>
 				<div class="w-[12%]">Stars</div>

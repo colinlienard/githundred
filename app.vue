@@ -1,25 +1,14 @@
 <template>
-	<Layout>
-		<NuxtPage />
-	</Layout>
+	<Html lang="en">
+		<Head>
+			<Title>GitHundred • Top 100 starred GitHub repositories</Title>
+			<Meta
+				name="description"
+				content="Explore the world's top 100 most starred GitHub repositories, from frameworks to languages to learning resources, with an insightful chart."
+			/>
+		</Head>
+		<Layout>
+			<NuxtPage />
+		</Layout>
+	</Html>
 </template>
-
-<!-- <script setup lang="ts">
-const pointer = usePointer();
-
-onMounted(() => {
-	window.addEventListener('mousemove', pointer.move);
-});
-
-onUnmounted(() => {
-	window.removeEventListener('mousemove', pointer.move);
-});
-</script>
-
-<template>
-	<main class="flex h-screen items-center justify-center gap-4 bg-slate-50">
-		<Sticker url="/svgs/star-sticker.svg" />
-		<Sticker url="/svgs/100-sticker.svg" />
-		<Sticker url="/svgs/github-sticker.svg" />
-	</main>
-</template> -->
