@@ -116,14 +116,14 @@ onUnmounted(() => {
 						<img :src="repo.image" :alt="`GitHub ${repo.ownerName} avatar`" class="h-6 rounded" />
 						<h3>
 							<span v-if="settings.showOwners" class="text-slate-500">{{ repo.ownerName }}/</span>
-							{{ repo.name }}
+							<span>{{ repo.name }}</span>
 						</h3>
 					</div>
 				</div>
 				<div>
 					<div class="flex items-center gap-1">
 						<StarIcon class="h-4" />
-						<span>{{ repo.starsNumber.toLocaleString() }}</span>
+						<span>{{ repo.stargazerCount.toLocaleString() }}</span>
 					</div>
 				</div>
 				<div class="text-slate-500">

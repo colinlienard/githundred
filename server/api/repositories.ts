@@ -1,15 +1,16 @@
 import { emojify } from 'node-emoji';
 
-type Repository = {
+export type Repository = {
 	rank: number;
 	name: string;
 	ownerName: string;
 	image: string;
 	description: string;
-	starsNumber: number;
+	stargazerCount: number;
 	url: string;
 	age: number;
 	language?: { name: string; color: string };
+	forkCount: number;
 };
 
 export default defineEventHandler(async (event) => {
@@ -32,9 +33,7 @@ export default defineEventHandler(async (event) => {
                   description
                   createdAt
                   url
-                  stargazers {
-                    totalCount
-                  }
+                  stargazerCount
                   owner {
                     login
                     avatarUrl
@@ -45,6 +44,7 @@ export default defineEventHandler(async (event) => {
                       color
                     }
                   }
+                  forkCount
                 }
               }
             }
@@ -61,10 +61,11 @@ export default defineEventHandler(async (event) => {
 		ownerName: node.owner.login,
 		image: node.owner.avatarUrl,
 		description: emojify(node.description),
-		starsNumber: node.stargazers.totalCount,
+		stargazerCount: node.stargazerCount,
 		url: node.url,
 		age: Date.now() - new Date(node.createdAt).getTime(),
 		language: node.languages.nodes[0],
+		forkCount: node.forkCount,
 	}));
 	return result;
 });

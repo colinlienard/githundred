@@ -29,7 +29,7 @@ onUnmounted(() => {
 		>
 			<header class="flex w-full items-center justify-between max-md:px-6">
 				<h1 class="font-serif font-semibold md:text-lg">
-					<NuxtLink to="/"><strong>githundred</strong></NuxtLink>
+					<NuxtLink to="/" tabindex="-1"><strong>githundred</strong></NuxtLink>
 				</h1>
 				<NuxtLink
 					to="https://github.com/colinlienard/githundred"
@@ -72,6 +72,10 @@ onUnmounted(() => {
 						<ArrowPathIcon class="h-4" />
 						<p class="text-sm">Last updated {{ lastUpdated }} ago</p>
 					</div>
+				</div>
+				<div class="flex gap-4">
+					<NuxtLink to="/">list</NuxtLink>
+					<NuxtLink to="/insights">insights</NuxtLink>
 				</div>
 				<div
 					class="mt-8 grid w-full grid-cols-[1fr_1fr] gap-2 py-8 [grid-template-areas:'a_a''b_b''c_d'] md:mt-16 md:flex"

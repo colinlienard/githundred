@@ -14,6 +14,7 @@
 	"dependencies": {
 		"@heroicons/vue": "^2.1.3",
 		"@pinia/nuxt": "^0.5.1",
+		"@tsparticles/confetti": "^3.3.0",
 		"node-emoji": "^2.1.3",
 		"nuxt": "^3.11.2",
 		"vue": "^3.4.21",
