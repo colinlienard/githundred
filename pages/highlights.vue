@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Card } from '~/components/InsightCard.vue';
+import type { Card } from '~/components/HighlightCard.vue';
 
-const { data } = await useFetch('/api/insights');
+const { data } = await useFetch('/api/highlights');
 
 type Entries<T> = {
 	[K in keyof T]: [K, T[K]];
@@ -64,10 +64,9 @@ const flippedCards = useFlippedCards();
 <template>
 	<div class="flex flex-col items-center gap-6">
 		<h3 class="text-xl font-semibold">Across all these repositories...</h3>
-		<ul class="-gap-4 grid w-fit grid-cols-3">
-			<InsightCard v-for="(card, index) of cards" :key="card.title" :card="card" :index="index" />
+		<ul class="flex w-fit grid-cols-3 flex-col gap-8 md:grid md:gap-0">
+			<highlightCard v-for="(card, index) of cards" :key="card.title" :card="card" :index="index" />
 		</ul>
 		<Confetti v-if="flippedCards.value.length === 6" />
-		<button @click="flippedCards.value = []">reset</button>
 	</div>
 </template>

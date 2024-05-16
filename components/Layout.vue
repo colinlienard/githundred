@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowPathIcon, CheckIcon, MagnifyingGlassIcon, XMarkIcon } from 'heroicons';
+import { ArrowPathIcon } from 'heroicons';
 
 const buildTime = useState(() => Date.now());
 const duration = Date.now() - buildTime.value;
@@ -7,8 +7,6 @@ const hours = Math.floor(duration / 60 / 60 / 1000);
 const lastUpdated = hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : 'less than an hour';
 
 const pointer = usePointer();
-const settings = useSettings();
-const languages = useLanguages();
 
 onMounted(() => {
 	window.addEventListener('mousemove', pointer.mousemove);
@@ -41,7 +39,7 @@ onUnmounted(() => {
 					GitHub
 				</NuxtLink>
 			</header>
-			<main class="flex w-full flex-col items-center *:max-md:px-6">
+			<main class="flex w-full flex-col items-center gap-12 *:max-md:px-6 md:gap-16">
 				<div class="relative flex w-full flex-col items-center gap-6">
 					<h2
 						class="max-w-96 text-center font-serif text-5xl font-semibold md:max-w-2xl md:text-6xl"
@@ -73,40 +71,7 @@ onUnmounted(() => {
 						<p class="text-sm">Last updated {{ lastUpdated }} ago</p>
 					</div>
 				</div>
-				<div class="flex gap-4">
-					<NuxtLink to="/">list</NuxtLink>
-					<NuxtLink to="/insights">insights</NuxtLink>
-				</div>
-				<div
-					class="mt-8 grid w-full grid-cols-[1fr_1fr] gap-2 py-8 [grid-template-areas:'a_a''b_b''c_d'] md:mt-16 md:flex"
-				>
-					<Input
-						v-model="settings.search"
-						placeholder="Search by name"
-						class="w-full [grid-area:a]"
-					>
-						<MagnifyingGlassIcon />
-					</Input>
-					<Select
-						v-model="settings.languages"
-						:options="languages.value"
-						placeholder="Languages"
-						class="w-full [grid-area:b]"
-					/>
-					<Button class="[grid-area:c]" @click="settings.showOwners = !settings.showOwners">
-						<CheckIcon v-if="settings.showOwners" />
-						<XMarkIcon v-else />
-						Show owners
-					</Button>
-					<Button
-						class="[grid-area:d]"
-						@click="settings.showFullDescription = !settings.showFullDescription"
-					>
-						<CheckIcon v-if="settings.showFullDescription" />
-						<XMarkIcon v-else />
-						Show full description
-					</Button>
-				</div>
+				<Navigation />
 				<div class="w-full max-md:overflow-auto">
 					<slot />
 				</div>

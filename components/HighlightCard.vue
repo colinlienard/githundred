@@ -10,19 +10,28 @@ const { card, index } = defineProps<{ card: Card; index: number }>();
 
 const flippedCards = useFlippedCards();
 const flipped = computed(() => flippedCards.value.includes(card.title));
+const isFlipping = ref(false);
+
+watch(flipped, (newFlipped) => {
+	if (!newFlipped) return;
+	isFlipping.value = true;
+	setTimeout(() => {
+		isFlipping.value = false;
+	}, 1000);
+});
 
 const [translateX, translateY, rotate] = (() => {
 	switch (index) {
 		case 0:
-			return ['-1rem', '1rem', '-4deg'];
+			return ['1rem', '1rem', '4deg'];
 		case 1:
-			return ['0rem', '2rem', '2deg'];
+			return ['0', '1rem', '2deg'];
 		case 2:
-			return ['0rem', '0rem', '-2deg'];
+			return ['0', '0', '-2deg'];
 		case 3:
 			return ['1rem', '-2rem', '1deg'];
 		case 4:
-			return ['2rem', '2rem', '4deg'];
+			return ['1rem', '0', '-2deg'];
 		case 5:
 		default:
 			return ['1rem', '-2rem', '-6deg'];
@@ -32,12 +41,15 @@ const [translateX, translateY, rotate] = (() => {
 
 <template>
 	<li
-		class="[perspective:1000px] hover:z-10"
-		:style="{ transform: `translateX(${translateX}) translateY(${translateY}) rotate(${rotate})` }"
+		class="[perspective:1000px]"
+		:style="{
+			transform: `translateX(${translateX}) translateY(${translateY}) rotate(${rotate})`,
+			zIndex: isFlipping ? 10 : 0,
+		}"
 		@click="!flipped && flippedCards.value.push(card.title)"
 	>
 		<div
-			:class="`card ${flipped && 'flipped'} relative h-96 w-64 cursor-pointer rounded-lg border border-solid border-slate-200 bg-slate-50 text-center shadow-lg transition-all [transform-style:preserve-3d] *:absolute *:flex *:h-full *:w-full *:flex-col *:items-center *:justify-center *:gap-2 *:p-10 *:[backface-visibility:hidden]`"
+			:class="`card ${flipped && 'flipped'} relative h-96 w-64 cursor-pointer rounded-lg border border-solid border-slate-200 bg-slate-50 text-center transition-all [transform-style:preserve-3d] *:absolute *:flex *:h-full *:w-full *:flex-col *:items-center *:justify-center *:gap-2 *:p-10 *:[backface-visibility:hidden]`"
 			@click="!flipped && flippedCards.value.push(card.title)"
 		>
 			<div>
@@ -55,11 +67,18 @@ const [translateX, translateY, rotate] = (() => {
 </template>
 
 <style scoped>
+.card {
+	--shadow-color: rgba(100, 116, 139, 0.2);
+	--shadow--blur: 0.5rem;
+	box-shadow: 0.1rem 0.1rem var(--shadow--blur) var(--shadow-color);
+}
+
 .card:hover {
-	transform: scale(1.05);
+	transform: scale(1.02);
 }
 
 .card.flipped {
+	box-shadow: -0.1rem 0.1rem var(--shadow--blur) var(--shadow-color);
 	transform: rotateY(180deg);
 	animation: flip 1s cubic-bezier(0.6, 0, 0.8, 1);
 	cursor: default;
@@ -82,18 +101,21 @@ const [translateX, translateY, rotate] = (() => {
 @keyframes flip {
 	0% {
 		transform: scale(1) rotateY(0deg);
+		box-shadow: 0.1rem 0.1rem var(--shadow--blur) var(--shadow-color);
 	}
-	20% {
+	40% {
 		transform: scale(1.2) rotateY(140deg);
 	}
 	80% {
 		transform: scale(1.3) rotateY(170deg);
+		box-shadow: -5rem 5rem var(--shadow--blur) var(--shadow-color);
 	}
 	95% {
 		transform: scale(0.9) rotateY(180deg);
 	}
 	100% {
 		transform: scale(1) rotateY(180deg);
+		box-shadow: -0.1rem 0.1rem var(--shadow--blur) var(--shadow-color);
 	}
 }
 
