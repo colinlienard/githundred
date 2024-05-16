@@ -29,15 +29,7 @@ onUnmounted(() => {
 				<h1 class="font-serif font-semibold md:text-lg">
 					<NuxtLink to="/" tabindex="-1"><strong>githundred</strong></NuxtLink>
 				</h1>
-				<NuxtLink
-					to="https://github.com/colinlienard/githundred"
-					target="_blank"
-					class="flex items-center gap-1 transition-colors hover:text-slate-500"
-					tabindex="-1"
-				>
-					<GitHubIcon class="h-5" />
-					GitHub
-				</NuxtLink>
+				<GitHubLink />
 			</header>
 			<main class="flex w-full flex-col items-center gap-12 *:max-md:px-6 md:gap-16">
 				<div class="relative flex w-full flex-col items-center gap-6">
