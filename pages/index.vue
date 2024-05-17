@@ -74,7 +74,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<section class="flex w-full flex-col">
+	<section class="flex flex-col w-full">
 		<div
 			class="grid w-full grid-cols-[1fr_1fr] gap-2 py-8 [grid-template-areas:'a_a''b_b''c_d'] md:flex"
 		>
@@ -117,12 +117,12 @@ onUnmounted(() => {
 			</div>
 			<div
 				v-if="repositories?.length"
-				class="relative table-row-group"
+				class="table-row-group relative"
 				@mouseleave="hoverEffect.opacity = 0"
 			>
 				<div ref="topOfTableRef" class="w-[1200%]" />
 				<div
-					class="absolute h-10 w-full bg-white transition-all"
+					class="absolute w-full h-10 bg-white transition-all"
 					:style="{
 						height: `${hoverEffect.height}px`,
 						top: `${hoverEffect.top}px`,
@@ -139,13 +139,13 @@ onUnmounted(() => {
 				>
 					<div>
 						<div
-							class="relative w-8 text-center after:absolute after:inset-1/2 after:h-8 after:w-8 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:border after:border-solid after:border-slate-300 after:content-['']"
+							class="relative font-[Arial] tracking-wider w-8 text-center after:absolute after:inset-1/2 after:h-8 after:w-8 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:border after:border-solid after:border-slate-300 after:content-['']"
 						>
 							{{ repo.rank }}
 						</div>
 					</div>
 					<div>
-						<div class="flex items-center gap-2">
+						<div class="flex gap-2 items-center">
 							<img :src="repo.image" :alt="`GitHub ${repo.ownerName} avatar`" class="h-6 rounded" />
 							<h3>
 								<span v-if="settings.showOwners" class="text-slate-500">{{ repo.ownerName }}/</span>
@@ -154,20 +154,20 @@ onUnmounted(() => {
 						</div>
 					</div>
 					<div>
-						<div class="flex items-center gap-1">
+						<div class="flex gap-1 items-center">
 							<StarIcon class="h-4" />
 							<span>{{ repo.stargazerCount.toLocaleString() }}</span>
 						</div>
 					</div>
 					<div class="text-slate-500">
 						<p v-if="settings.showFullDescription">{{ repo.description }}</p>
-						<p v-else class="overflow-hidden text-ellipsis whitespace-nowrap">
+						<p v-else class="overflow-hidden whitespace-nowrap text-ellipsis">
 							{{ repo.description }}
 						</p>
 					</div>
 					<div>
-						<div v-if="repo.language" class="flex items-center gap-1">
-							<div class="h-2 w-2 rounded-full" :style="{ backgroundColor: repo.language.color }" />
+						<div v-if="repo.language" class="flex gap-1 items-center">
+							<div class="w-2 h-2 rounded-full" :style="{ backgroundColor: repo.language.color }" />
 							{{ repo.language?.name }}
 						</div>
 						<span v-else>-</span>
@@ -175,12 +175,12 @@ onUnmounted(() => {
 					<div>{{ formatDuration(repo.age) }}</div>
 				</NuxtLink>
 			</div>
-			<div v-else class="text-nowrap px-4 pt-8 text-slate-500">No results for this search.</div>
+			<div v-else class="px-4 pt-8 text-nowrap text-slate-500">No results for this search.</div>
 			<Teleport to="body">
 				<Transition>
 					<button
 						v-if="hasScrolled"
-						class="fixed bottom-4 right-4 z-50 rounded-full bg-slate-50 p-4"
+						class="fixed right-4 bottom-4 z-50 p-4 rounded-full bg-slate-50"
 						@click="onClickScrollUp"
 					>
 						<ArrowUpIcon class="h-4" />
