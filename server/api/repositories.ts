@@ -1,5 +1,15 @@
 import { emojify } from 'node-emoji';
 
+function getDisplayName(name: string) {
+	const camelPascalSplit = name.replace(/([a-z])([A-Z])/g, '$1 $2');
+	const intermediate = camelPascalSplit.replace(/[_-]/g, ' ');
+	const words = intermediate.split(' ');
+	const capitalizedWords = words.map(
+		(word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+	);
+	return capitalizedWords.join(' ');
+}
+
 export type Repository = {
 	rank: number;
 	name: string;
@@ -57,7 +67,7 @@ export default defineEventHandler(async (event) => {
 
 	const result: Repository[] = data.search.edges.map(({ node }: any, index: number) => ({
 		rank: index + 1,
-		name: node.name,
+		name: getDisplayName(node.name),
 		ownerName: node.owner.login,
 		image: node.owner.avatarUrl,
 		description: emojify(node.description),
