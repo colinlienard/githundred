@@ -15,15 +15,32 @@ const hasScrolled = ref(false);
 
 const repositories = computed(() => {
 	if (!settings.search && !settings.languages.length) return data.value;
-	return data.value?.filter((repo) => {
-		const isLanguage = settings.languages.length
-			? settings.languages.includes(repo.language?.name ?? '')
-			: true;
-		const isSearch = settings.search
-			? repo.name.toLowerCase().includes(settings.search.toLowerCase())
-			: true;
-		return isLanguage && isSearch;
-	});
+	return data.value
+		?.filter((repo) => {
+			const isLanguage = settings.languages.length
+				? settings.languages.includes(repo.language?.name ?? '')
+				: true;
+			return isLanguage;
+		})
+		.sort((a, b) => {
+			const calculateMatchScore = (repoName, searchTerm) => {
+				let score = 0;
+				let index = 0;
+				for (let char of searchTerm.toLowerCase()) {
+					index = repoName.toLowerCase().indexOf(char, index);
+					if (index === -1) break;
+					score++;
+					index++;
+				}
+				return score;
+			};
+
+			const searchTerm = settings.search.toLowerCase();
+			const scoreA = calculateMatchScore(a.name, searchTerm);
+			const scoreB = calculateMatchScore(b.name, searchTerm);
+
+			return scoreB - scoreA;
+		});
 });
 const hoverEffect = ref({ height: 0, top: 0, opacity: 0 });
 
