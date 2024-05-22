@@ -13,17 +13,37 @@ const languages = ref<string[]>([]);
 const topOfTableRef = ref<HTMLElement>();
 const hasScrolled = ref(false);
 
+function calculateMatchScore(repoName: string, searchTerm: string) {
+	let score = 0;
+	let index = 0;
+	for (const char of searchTerm.toLowerCase()) {
+		index = repoName.toLowerCase().indexOf(char, index);
+		if (index === -1) break;
+		score++;
+		index++;
+	}
+	return score;
+}
+
 const repositories = computed(() => {
 	if (!settings.search && !settings.languages.length) return data.value;
-	return data.value?.filter((repo) => {
-		const isLanguage = settings.languages.length
-			? settings.languages.includes(repo.language?.name ?? '')
-			: true;
-		const isSearch = settings.search
-			? repo.name.toLowerCase().includes(settings.search.toLowerCase())
-			: true;
-		return isLanguage && isSearch;
-	});
+
+	const searchTerm = settings.search.toLowerCase();
+
+	return data.value
+		?.filter((repo) => {
+			const isLanguage = settings.languages.length
+				? settings.languages.includes(repo.language?.name ?? '')
+				: true;
+			const isSearch = calculateMatchScore(repo.name, searchTerm) >= searchTerm.length;
+			return isLanguage && isSearch;
+		})
+		.sort((a, b) => {
+			const scoreA = calculateMatchScore(a.name, searchTerm);
+			const scoreB = calculateMatchScore(b.name, searchTerm);
+
+			return scoreB - scoreA;
+		});
 });
 const hoverEffect = ref({ height: 0, top: 0, opacity: 0 });
 
