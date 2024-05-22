@@ -7,7 +7,7 @@ const isHome = computed(() => route.path === '/');
 
 <template>
 	<nav
-		class="relative flex rounded-full border-8 border-solid border-slate-100 bg-slate-200 *:z-10 *:flex *:w-32 *:items-center *:justify-center *:gap-1 *:p-3 *:text-center *:transition-all"
+		class="relative flex rounded-full border-8 border-solid border-slate-100 bg-slate-200 *:z-10 *:flex *:w-32 *:items-center *:justify-center *:gap-1 *:p-2 *:text-center *:transition-all"
 	>
 		<NuxtLink to="/" :style="{ color: isHome ? 'white' : '' }">
 			<ListBulletIcon class="h-4" />

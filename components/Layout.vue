@@ -31,8 +31,8 @@ onUnmounted(() => {
 				</h1>
 				<GitHubLink />
 			</header>
-			<main class="flex w-full flex-col items-center gap-12 *:max-md:px-6 md:gap-16">
-				<div class="relative flex w-full flex-col items-center gap-6">
+			<main class="flex w-full flex-col items-center gap-12 md:gap-16">
+				<div class="relative flex w-full flex-col items-center gap-6 max-md:px-6">
 					<h2
 						class="max-w-96 text-center font-serif text-5xl font-semibold md:max-w-2xl md:text-6xl"
 					>
@@ -64,7 +64,7 @@ onUnmounted(() => {
 					</div>
 				</div>
 				<Navigation />
-				<div class="w-full max-md:overflow-auto">
+				<div class="w-full">
 					<slot />
 				</div>
 			</main>
