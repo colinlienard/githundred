@@ -160,7 +160,7 @@ onUnmounted(() => {
 					>
 						<div>
 							<div
-								class="relative w-8 text-center after:absolute after:inset-1/2 after:h-8 after:w-8 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:border after:border-solid after:border-slate-300 after:content-['']"
+								class="relative w-8 text-center font-[Arial] tracking-wider after:absolute after:inset-1/2 after:h-8 after:w-8 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:border after:border-solid after:border-slate-300 after:content-['']"
 							>
 								{{ repo.rank }}
 							</div>
