@@ -13,6 +13,7 @@ function getDisplayName(name: string) {
 export type Repository = {
 	rank: number;
 	name: string;
+	displayName: string;
 	ownerName: string;
 	image: string;
 	description: string;
@@ -67,7 +68,8 @@ export default defineEventHandler(async (event) => {
 
 	const result: Repository[] = data.search.edges.map(({ node }: any, index: number) => ({
 		rank: index + 1,
-		name: getDisplayName(node.name),
+		name: node.name,
+		displayName: getDisplayName(node.name),
 		ownerName: node.owner.login,
 		image: node.owner.avatarUrl,
 		description: emojify(node.description),

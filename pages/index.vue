@@ -176,7 +176,8 @@ onUnmounted(() => {
 									<span v-if="settings.showOwners" class="text-slate-500">
 										{{ repo.ownerName }}/
 									</span>
-									<span>{{ repo.name }}</span>
+									<span v-if="settings.showOwners">{{ repo.name }}</span>
+									<span v-else>{{ repo.displayName }}</span>
 								</h3>
 							</div>
 						</div>
