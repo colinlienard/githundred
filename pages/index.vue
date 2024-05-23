@@ -28,7 +28,7 @@ function calculateMatchScore(repoName: string, searchTerm: string) {
 const repositories = computed(() => {
 	if (!settings.search && !settings.languages.length) return data.value;
 
-	const searchTerm = settings.search.toLowerCase();
+	const searchTerm = settings.search.toLowerCase().replaceAll(' ', '');
 
 	return data.value
 		?.filter((repo) => {
