@@ -123,11 +123,13 @@ onUnmounted(() => {
 		</div>
 
 		<div class="max-md:overflow-auto">
-			<div class="table w-[64rem] table-fixed">
+			<div class="relative table w-[64rem] table-fixed">
 				<div
-					:class="`sticky top-0 z-10 table-header-group border-solid after:absolute after:inset-0 after:border-b after:border-slate-300 after:transition-shadow after:content-[''] ${hasScrolled && 'after:shadow-[0_1rem_1rem_-1.5rem_#94a3b8]'}`"
+					:class="`sticky top-0 z-10 table-header-group transition-shadow ${hasScrolled && 'shadow-[0_1rem_1rem_-1.5rem_#94a3b8]'}`"
 				>
-					<div class="relative table-row bg-slate-50 text-slate-500 *:table-cell *:px-4 *:py-6">
+					<div
+						class="row-border-bottom relative table-row text-slate-500 *:table-cell *:px-4 *:py-6"
+					>
 						<div class="w-[8%]">Rank</div>
 						<div class="w-[30%]">Name</div>
 						<div class="w-[12%]">Stars</div>
@@ -143,7 +145,7 @@ onUnmounted(() => {
 				>
 					<div ref="topOfTableRef" class="w-[1200%]" />
 					<div
-						class="absolute h-10 w-full bg-white transition-all"
+						class="absolute z-[-1] h-10 w-full bg-white transition-all"
 						:style="{
 							height: `${hoverEffect.height}px`,
 							top: `${hoverEffect.top}px`,
@@ -155,7 +157,7 @@ onUnmounted(() => {
 						:key="repo.name"
 						:to="repo.url"
 						target="_blank"
-						class="relative table-row cursor-alias *:table-cell *:px-4 *:py-6 *:align-top after:absolute after:inset-0 after:h-[1px] after:content-[''] [&:not(:first-of-type):after]:bg-slate-300"
+						class="row-border-top relative table-row cursor-alias *:table-cell *:px-4 *:py-6 *:align-top"
 						@mouseenter="onHoverEffectMouseEnter"
 					>
 						<div>
@@ -232,5 +234,13 @@ onUnmounted(() => {
 .v-enter-from,
 .v-leave-to {
 	opacity: 0;
+}
+
+.row-border-top:not(:first-of-type) {
+	background-image: linear-gradient(#94a3b8, transparent 1px);
+}
+
+.row-border-bottom {
+	background-image: linear-gradient(to top, #94a3b8, #f8fafc 1px);
 }
 </style>
