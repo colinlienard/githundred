@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Card } from '~/components/HighlightCard.vue';
+import '@tsparticles/confetti';
 
 const { data } = await useFetch('/api/highlights');
 
