@@ -3,6 +3,8 @@ import type { Card } from '~/components/HighlightCard.vue';
 import '@tsparticles/confetti';
 
 const { data } = await useFetch('/api/highlights');
+const flippedCards = useFlippedCards();
+const confetti = useConfetti();
 
 type Entries<T> = {
 	[K in keyof T]: [K, T[K]];
@@ -59,7 +61,11 @@ function getFormattedValue(
 	}
 }
 
-const flippedCards = useFlippedCards();
+watch(flippedCards, (newVal) => {
+	if (newVal.value.length === 6) {
+		confetti();
+	}
+});
 </script>
 
 <template>
@@ -68,6 +74,5 @@ const flippedCards = useFlippedCards();
 		<ul class="flex w-fit grid-cols-3 flex-col gap-8 md:grid md:gap-0">
 			<highlightCard v-for="(card, index) of cards" :key="card.title" :card="card" :index="index" />
 		</ul>
-		<Confetti v-if="flippedCards.value.length === 6" />
 	</div>
 </template>
