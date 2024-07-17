@@ -12,22 +12,22 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@heroicons/vue": "^2.1.3",
+		"@heroicons/vue": "^2.1.5",
 		"@pinia/nuxt": "^0.5.1",
-		"@tsparticles/confetti": "^3.3.0",
+		"@tsparticles/confetti": "^3.5.0",
 		"node-emoji": "^2.1.3",
-		"nuxt": "^3.11.2",
-		"vue": "^3.4.21",
-		"vue-router": "^4.3.0"
+		"nuxt": "^3.12.3",
+		"vue": "^3.4.31",
+		"vue-router": "^4.4.0"
 	},
 	"devDependencies": {
-		"@nuxt/eslint": "^0.3.10",
+		"@nuxt/eslint": "^0.3.13",
 		"autoprefixer": "^10.4.19",
 		"eslint-config-prettier": "^9.1.0",
-		"postcss": "^8.4.38",
-		"prettier": "^3.2.5",
-		"prettier-plugin-tailwindcss": "^0.5.14",
-		"tailwindcss": "^3.4.3",
-		"typescript": "^5.4.5"
+		"postcss": "^8.4.39",
+		"prettier": "^3.3.3",
+		"prettier-plugin-tailwindcss": "^0.6.5",
+		"tailwindcss": "^3.4.6",
+		"typescript": "^5.5.3"
 	}
 }
