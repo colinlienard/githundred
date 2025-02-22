@@ -15,7 +15,6 @@ export default defineNuxtConfig({
 		githubToken: '',
 	},
 	vite: {
-		// @ts-expect-error Plugin type error
 		plugins: [tailwindcss()],
 	},
 	compatibilityDate: '2025-02-22',
