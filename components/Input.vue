@@ -13,7 +13,7 @@ defineExpose({ focus: () => inputRef.value?.focus() });
 		<input
 			ref="inputRef"
 			v-model="model"
-			class="bg-transparent outline-none placeholder:text-slate-400"
+			class="bg-transparent outline-hidden placeholder:text-slate-400"
 			type="text"
 			:placeholder="placeholder"
 			@keydown="emit('keydown', $event)"

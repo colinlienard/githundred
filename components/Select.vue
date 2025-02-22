@@ -92,7 +92,7 @@ onUnmounted(() => {
 <template>
 	<div
 		ref="element"
-		class="box input z-1 relative cursor-pointer justify-between overflow-hidden hover:border-slate-400"
+		class="box input relative z-1 cursor-pointer justify-between overflow-hidden hover:border-slate-400"
 		tabindex="0"
 		data-select
 		@click="isOpen = !isOpen"
@@ -102,7 +102,7 @@ onUnmounted(() => {
 		</span>
 		<span v-else class="text-slate-400">{{ placeholder }}</span>
 		<ChevronDownIcon
-			class="flex-shrink-0 transition-all"
+			class="shrink-0 transition-all"
 			:style="{ transform: isOpen ? 'rotate(-180deg)' : 'rotate(0)' }"
 		/>
 
@@ -111,7 +111,7 @@ onUnmounted(() => {
 				<div
 					v-if="isOpen"
 					data-select
-					class="absolute left-0 right-0 top-full z-50 flex max-h-56 flex-col overflow-auto rounded-lg border border-solid border-slate-300 bg-slate-50 shadow-sm"
+					class="absolute top-full right-0 left-0 z-50 flex max-h-56 flex-col overflow-auto rounded-lg border border-solid border-slate-300 bg-slate-50 shadow-xs"
 					:style="{ top: `${position.y}px`, left: `${position.x}px`, width: `${position.width}px` }"
 				>
 					<Input
@@ -124,12 +124,12 @@ onUnmounted(() => {
 					<button
 						v-for="option in filteredOptions"
 						:key="option"
-						class="box group border-none !-outline-offset-4"
+						class="box group cursor-pointer border-none -outline-offset-4!"
 						:data-select-option="option"
 						@click="onClickItem(option)"
 					>
 						<CheckIcon
-							class="group-hover:!opacity-25 group-focus:!opacity-25"
+							class="group-hover:opacity-25! group-focus:opacity-25!"
 							:style="{ opacity: model?.includes(option) ? '1 !important' : 0 }"
 						/>
 						{{ option }}

@@ -55,11 +55,11 @@ const [translateX, translateY, rotate] = (() => {
 			<div>
 				<h4 class="text-balance">{{ card.title }}...</h4>
 			</div>
-			<div class="relative overflow-hidden [transform:rotateY(180deg)]">
-				<h4 class="text-balance text-sm text-slate-500">{{ card.title }}</h4>
-				<p class="text-lg font-semibold leading-tight">{{ card.repo }}</p>
+			<div class="relative [transform:rotateY(180deg)] overflow-hidden">
+				<h4 class="text-sm text-balance text-slate-500">{{ card.title }}</h4>
+				<p class="text-lg leading-tight font-semibold">{{ card.repo }}</p>
 				<p class="text-sm text-slate-500">with</p>
-				<span class="text-lg font-semibold leading-tight">{{ card.value }} {{ card.unit }}</span>
+				<span class="text-lg leading-tight font-semibold">{{ card.value }} {{ card.unit }}</span>
 				<div v-if="flipped" class="shine" />
 			</div>
 		</div>
