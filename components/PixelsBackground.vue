@@ -40,7 +40,7 @@ onUnmounted(() => {
 				:style="{ top: `${y}px`, left: `${x}px`, backgroundColor: color }"
 			/>
 		</TransitionGroup>
-		<div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50" />
+		<div class="absolute inset-0 bg-linear-to-b from-transparent to-slate-50" />
 	</div>
 </template>
 
@@ -49,7 +49,8 @@ onUnmounted(() => {
 	--bg: #f8fafc;
 	--color: #e2e8f0;
 	--space: 0.25rem;
-	background: repeating-linear-gradient(
+	background:
+		repeating-linear-gradient(
 			transparent,
 			transparent var(--space),
 			var(--bg) var(--space),

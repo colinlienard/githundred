@@ -1,3 +1,5 @@
+import tailwindcss from '@tailwindcss/vite';
+
 export default defineNuxtConfig({
 	alias: {
 		heroicons: '@heroicons/vue/24/outline',
@@ -5,12 +7,6 @@ export default defineNuxtConfig({
 	devtools: { enabled: true },
 	css: ['~/assets/css/main.css'],
 	modules: ['@nuxt/eslint', '@pinia/nuxt'],
-	postcss: {
-		plugins: {
-			tailwindcss: {},
-			autoprefixer: {},
-		},
-	},
 	routeRules: {
 		'/**': { isr: 60 * 60 * 24 },
 		'/api/**': { cors: true },
@@ -18,4 +14,8 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		githubToken: '',
 	},
+	vite: {
+		plugins: [tailwindcss()],
+	},
+	compatibilityDate: '2025-02-22',
 });

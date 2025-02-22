@@ -94,7 +94,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<section class="flex w-full flex-col *:max-md:px-6">
+	<section class="flex w-full flex-col max-md:*:px-6">
 		<div
 			class="grid w-full grid-cols-[1fr_1fr] gap-2 py-8 [grid-template-areas:'a_a''b_b''c_d'] md:flex"
 		>
@@ -172,7 +172,7 @@ onUnmounted(() => {
 								<img
 									:src="repo.image"
 									:alt="`GitHub ${repo.ownerName} avatar`"
-									class="h-6 rounded"
+									class="h-6 rounded-sm"
 								/>
 								<h3>
 									<span v-if="settings.showOwners" class="text-slate-500">
@@ -191,9 +191,13 @@ onUnmounted(() => {
 						</div>
 						<div class="text-slate-500">
 							<p v-if="settings.showFullDescription">{{ repo.description }}</p>
-							<p v-else class="overflow-hidden text-ellipsis whitespace-nowrap">
+							<p
+								v-else-if="repo.description"
+								class="overflow-hidden text-ellipsis whitespace-nowrap"
+							>
 								{{ repo.description }}
 							</p>
+							<span v-else>-</span>
 						</div>
 						<div>
 							<div v-if="repo.language" class="flex items-center gap-1">
@@ -208,12 +212,12 @@ onUnmounted(() => {
 						<div>{{ formatDuration(repo.age) }}</div>
 					</NuxtLink>
 				</div>
-				<div v-else class="text-nowrap px-4 pt-8 text-slate-500">No results for this search.</div>
+				<div v-else class="px-4 pt-8 text-nowrap text-slate-500">No results for this search.</div>
 				<Teleport to="body">
 					<Transition>
 						<button
 							v-if="hasScrolled"
-							class="fixed bottom-4 right-4 z-50 rounded-full bg-slate-50 p-4"
+							class="fixed right-4 bottom-4 z-50 cursor-pointer rounded-full bg-slate-50 p-4"
 							@click="onClickScrollUp"
 						>
 							<ArrowUpIcon class="h-4" />

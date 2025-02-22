@@ -67,8 +67,8 @@ onMounted(() => {
 	mask-position: 1px;
 	mask-repeat: no-repeat;
 
-	background-image: url(/images/noise.png),
-		repeating-linear-gradient(-45deg, black, white 5%, black 10%),
+	background-image:
+		url(/images/noise.png), repeating-linear-gradient(-45deg, black, white 5%, black 10%),
 		repeating-linear-gradient(purple, red, yellow, green, cyan, purple);
 	background-size:
 		50% 50%,

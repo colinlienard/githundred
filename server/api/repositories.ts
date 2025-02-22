@@ -16,7 +16,7 @@ export type Repository = {
 	displayName: string;
 	ownerName: string;
 	image: string;
-	description: string;
+	description?: string;
 	stargazerCount: number;
 	url: string;
 	age: number;
@@ -72,7 +72,7 @@ export default defineEventHandler(async (event) => {
 		displayName: getDisplayName(node.name),
 		ownerName: node.owner.login,
 		image: node.owner.avatarUrl,
-		description: emojify(node.description),
+		description: node.description ? emojify(node.description) : undefined,
 		stargazerCount: node.stargazerCount,
 		url: node.url,
 		age: Date.now() - new Date(node.createdAt).getTime(),

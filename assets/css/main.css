@@ -1,6 +1,29 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+	--font-*: initial;
+	--font-sans: Inter, sans-serif;
+	--font-serif: Source Serif Pro, serif;
+}
+
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentColor);
+	}
+}
+
+@utility box {
+	@apply flex items-center gap-2 rounded-lg border border-solid border-slate-300 bg-slate-50 px-3 py-2 text-nowrap outline-0 outline-teal-100 transition-all [&>svg]:h-4;
+
+	&:focus,
+	&:focus-within {
+		@apply border-teal-400! outline-4;
+	}
+}
 
 @layer base {
 	@font-face {
@@ -46,15 +69,8 @@
 	*::selection {
 		@apply bg-teal-200;
 	}
-}
 
-@layer components {
-	.box {
-		@apply flex items-center gap-2 text-nowrap rounded-lg border border-solid border-slate-300 bg-slate-50 px-3 py-2 outline-0 outline-teal-100 transition-all [&>svg]:h-4;
-
-		&:focus,
-		&:focus-within {
-			@apply !border-teal-400 outline outline-4;
-		}
+	#confetti {
+		@apply pointer-events-none;
 	}
 }
