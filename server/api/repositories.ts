@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
                     login
                     avatarUrl
                   }
-                  languages(first: 1) {
+                  languages(first: 1, orderBy: {field: SIZE, direction: DESC}) {
                     nodes {
                       name
                       color
