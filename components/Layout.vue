@@ -70,7 +70,7 @@ onUnmounted(() => {
 			</main>
 			<footer class="mt-auto">
 				<span class="text-slate-500">Made by{{ ' ' }}</span>
-				<NuxtLink to="https://colin-lienard.fr" target="_blank">Colin Lienard</NuxtLink>
+				<NuxtLink to="https://github.com/colinlienard" target="_blank">Colin Lienard</NuxtLink>
 			</footer>
 		</div>
 	</div>
