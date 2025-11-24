@@ -73,7 +73,7 @@ function onClickItem(option: string) {
 }
 
 function onSearchKeydown(event: KeyboardEvent) {
-	if (event.key === 'Enter' && filteredOptions.value.length === 1) {
+	if (event.key === 'Enter' && filteredOptions.value.length === 1 && filteredOptions.value[0]) {
 		onClickItem(filteredOptions.value[0]);
 	}
 }

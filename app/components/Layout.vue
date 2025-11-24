@@ -46,17 +46,17 @@ onUnmounted(() => {
 					</h2>
 					<Sticker
 						url="/svgs/100-sticker.svg"
-						class="absolute! -top-8 -translate-x-3 max-md:scale-[70%] md:-translate-x-[6.75rem]"
+						class="absolute! -top-8 -translate-x-3 max-md:scale-[70%] md:-translate-x-27"
 					/>
 					<Sticker
 						url="/svgs/star-sticker.svg"
 						rotate="90deg"
-						class="absolute! bottom-6 -translate-x-52 max-md:scale-[70%] md:top-1 md:translate-x-[19.5rem]"
+						class="absolute! bottom-6 -translate-x-52 max-md:scale-[70%] md:top-1 md:translate-x-78"
 					/>
 					<Sticker
 						url="/svgs/github-sticker.svg"
 						rotate="-15deg"
-						class="absolute! bottom-4 translate-x-44 max-md:scale-75 md:-bottom-1 md:-translate-x-[17rem]"
+						class="absolute! bottom-4 translate-x-44 max-md:scale-75 md:-bottom-1 md:-translate-x-68"
 					/>
 					<div class="flex items-center gap-2 text-slate-500">
 						<ArrowPathIcon class="h-4" />

@@ -41,7 +41,7 @@ const [translateX, translateY, rotate] = (() => {
 
 <template>
 	<li
-		class="[perspective:1000px]"
+		class="perspective-[1000px]"
 		:style="{
 			transform: `translateX(${translateX}) translateY(${translateY}) rotate(${rotate})`,
 			zIndex: isFlipping ? 10 : 0,
@@ -49,13 +49,13 @@ const [translateX, translateY, rotate] = (() => {
 		@click="!flipped && flippedCards.value.push(card.title)"
 	>
 		<div
-			:class="`card ${flipped && 'flipped'} relative h-96 w-64 cursor-pointer rounded-lg border border-solid border-slate-200 bg-slate-50 text-center transition-all [transform-style:preserve-3d] *:absolute *:flex *:h-full *:w-full *:flex-col *:items-center *:justify-center *:gap-2 *:p-10 *:[backface-visibility:hidden]`"
+			:class="`card ${flipped && 'flipped'} relative h-96 w-64 cursor-pointer rounded-lg border border-solid border-slate-200 bg-slate-50 text-center transition-all transform-3d *:absolute *:flex *:h-full *:w-full *:flex-col *:items-center *:justify-center *:gap-2 *:p-10 *:backface-hidden`"
 			@click="!flipped && flippedCards.value.push(card.title)"
 		>
 			<div>
 				<h4 class="text-balance">{{ card.title }}...</h4>
 			</div>
-			<div class="relative [transform:rotateY(180deg)] overflow-hidden">
+			<div class="relative transform-[rotateY(180deg)] overflow-hidden">
 				<h4 class="text-sm text-balance text-slate-500">{{ card.title }}</h4>
 				<p class="text-lg leading-tight font-semibold">{{ card.repo }}</p>
 				<p class="text-sm text-slate-500">with</p>

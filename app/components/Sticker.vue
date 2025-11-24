@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { url, rotate } = defineProps<{ url: string; rotate?: string }>();
+const { url, rotate = undefined } = defineProps<{ url: string; rotate?: string }>();
 
 const maskUrl = `url(${url})`;
 const element = ref<HTMLElement>();

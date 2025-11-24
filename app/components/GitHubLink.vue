@@ -10,7 +10,7 @@
 			GitHub
 		</NuxtLink>
 		<div
-			class="absolute -inset-x-3 -inset-y-2 z-0 rounded-full [background-image:url(/images/github-background.png)]"
+			class="absolute -inset-x-3 -inset-y-2 z-0 rounded-full bg-[url(/images/github-background.png)]"
 		/>
 	</div>
 </template>
