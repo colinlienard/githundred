@@ -9,12 +9,13 @@ type Entries<T> = {
 
 const cards = computed<Card[]>(() => {
 	if (!data.value) return [];
-	return (Object.entries(data.value) as Entries<typeof data.value>).map(
-		([key, { name, value }]) => {
+	return (Object.entries(data.value) as Entries<NonNullable<typeof data.value>>)
+		.filter(([, value]) => value !== undefined)
+		.map(([key, value]) => {
+			const { name, value: val } = value!;
 			const [title, unit] = getTexts(key);
-			return { title, repo: name, value: getFormattedValue(key, value), unit };
-		},
-	);
+			return { title, repo: name, value: getFormattedValue(key, val), unit };
+		});
 });
 
 function getTexts(key: keyof NonNullable<typeof data.value>): [string, string | null] {

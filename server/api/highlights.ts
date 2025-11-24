@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
 	const repositories = await $fetch('/api/repositories');
 
 	function findMost(key: RepositoryNumbers, invert = false): { name: string; value: number } {
-		const [repo] = repositories.sort((a, b) => (invert ? a[key] - b[key] : b[key] - a[key]));
+		const repo = repositories.sort((a, b) => (invert ? a[key] - b[key] : b[key] - a[key]))[0]!;
 		return { name: `${repo.ownerName}/${repo.name}`, value: repo[key] };
 	}
 

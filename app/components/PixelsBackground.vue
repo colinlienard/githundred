@@ -4,11 +4,11 @@ let intervalId: ReturnType<typeof setInterval>;
 
 const colors = ['#cbd5e1', '#cbd5e1', '#99f6e4', '#2dd4bf'];
 
-function randomPixel() {
+function randomPixel(): { id: string; x: number; y: number; color: string } {
 	const id = crypto.randomUUID();
 	const x = Math.floor((Math.random() * window.innerWidth) / 8) * 8;
 	const y = Math.floor((Math.random() * window.innerHeight) / 8 / 3) * 8;
-	const color = colors[Math.floor(Math.random() * colors.length)];
+	const color = (colors[Math.floor(Math.random() * colors.length)] ?? colors[0]) as string;
 	return { id, x, y, color };
 }
 
@@ -30,7 +30,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<div class="absolute inset-[4px] h-[50vh] overflow-hidden">
+	<div class="absolute inset-1 h-[50vh] overflow-hidden">
 		<div class="tileset absolute inset-0 opacity-50" />
 		<TransitionGroup name="pixels">
 			<div

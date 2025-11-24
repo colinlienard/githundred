@@ -123,7 +123,7 @@ onUnmounted(() => {
 		</div>
 
 		<div class="max-md:overflow-auto">
-			<div class="relative table w-[64rem] table-fixed">
+			<div class="relative table w-5xl table-fixed">
 				<div
 					:class="`sticky top-0 z-10 table-header-group transition-shadow ${hasScrolled && 'shadow-[0_1rem_1rem_-1.5rem_#94a3b8]'}`"
 				>
