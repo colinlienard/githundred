@@ -52,7 +52,7 @@ function formatDuration(age: number) {
 	return `${years} y.o.`;
 }
 
-function onHoverEffectMouseEnter(event: MouseEvent) {
+function onHoverEffectMouseEnter(event: Event) {
 	const target = event.target as HTMLElement;
 	const { height } = target.getBoundingClientRect();
 	hoverEffect.value = { top: target.offsetTop, height, opacity: 1 };
@@ -157,8 +157,9 @@ onUnmounted(() => {
 						:key="repo.name"
 						:to="repo.url"
 						target="_blank"
-						class="row-border-top relative table-row cursor-alias *:table-cell *:px-4 *:py-6 *:align-top"
+						class="row-border-top relative table-row cursor-alias outline-none *:table-cell *:px-4 *:py-6 *:align-top"
 						@mouseenter="onHoverEffectMouseEnter"
+						@focus="onHoverEffectMouseEnter"
 					>
 						<div>
 							<div

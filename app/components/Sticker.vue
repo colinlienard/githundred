@@ -6,17 +6,8 @@ const element = ref<HTMLElement>();
 const center = ref<{ x: number; y: number }>();
 const pointer = usePointer();
 
-const y = computedWithPrev<number>((prev) => {
-	if (pointer.type === 'deviceorientation') return cap(pointer.x);
-	if (!center.value) return -4;
-	return ease(-(center.value.x - pointer.x), prev);
-});
-
-const x = computedWithPrev<number>((prev) => {
-	if (pointer.type === 'deviceorientation') return cap(pointer.y);
-	if (!center.value) return -12;
-	return ease(center.value.y - pointer.y, prev);
-});
+const x = ref(0);
+const y = ref(0);
 
 const fromCenter = computed(() => {
 	if (!center.value) return 0;
@@ -33,9 +24,25 @@ function cap(result: number, min = -15, max = 15) {
 	return Math.min(Math.max(result, min), max);
 }
 
+function loop() {
+	if (pointer.type === 'deviceorientation') {
+		x.value = cap(pointer.x);
+		y.value = cap(pointer.y);
+	} else if (!center.value) {
+		x.value = -4;
+		y.value = -12;
+	} else {
+		x.value = ease(-(center.value.x - pointer.x), x.value);
+		y.value = ease(center.value.y - pointer.y, y.value);
+	}
+
+	requestAnimationFrame(loop);
+}
+
 onMounted(() => {
 	const { width, height, top, left } = element.value!.getBoundingClientRect();
 	center.value = { x: left + width / 2, y: top + height / 2 };
+	loop();
 });
 </script>
 
@@ -44,7 +51,7 @@ onMounted(() => {
 		<div
 			ref="element"
 			class="sticker relative"
-			:style="{ '--x': x, '--y': y, '--from-center': fromCenter, '--rotate': rotate }"
+			:style="{ '--x': y, '--y': x, '--from-center': fromCenter, '--rotate': rotate }"
 		>
 			<img class="drop-shadow-lg" :src="url" alt="" />
 			<div class="shine absolute inset-0" />
