@@ -4,7 +4,7 @@
 
 A list of the top 100 most starred GitHub repositories, updated daily.
 
-![Screenshot](./assets/images/screenshot.png)
+![Screenshot](./assets/screenshot.png)
 
 </div>
 
