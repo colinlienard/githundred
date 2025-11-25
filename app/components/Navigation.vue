@@ -8,7 +8,7 @@ const isHome = computed(() => route.path === '/');
 <template>
 	<nav class="relative flex rounded-full border-8 border-solid border-slate-100 bg-slate-200">
 		<NuxtLink
-			class="z-10 flex w-32 items-center justify-center gap-1 p-2 text-center transition-all"
+			class="z-10 flex w-32 items-center justify-center gap-1 rounded-full p-2 text-center ring-0 ring-teal-300 transition-all outline-none focus:ring-4"
 			to="/"
 			:style="{ color: isHome ? 'white' : '' }"
 		>
@@ -16,7 +16,7 @@ const isHome = computed(() => route.path === '/');
 			List
 		</NuxtLink>
 		<NuxtLink
-			class="z-10 flex w-32 items-center justify-center gap-1 p-2 text-center transition-all"
+			class="z-10 flex w-32 items-center justify-center gap-1 rounded-full p-2 text-center ring-0 ring-teal-300 transition-all outline-none focus:ring-4"
 			to="/highlights"
 			:style="{ color: isHome ? '' : 'white' }"
 		>
